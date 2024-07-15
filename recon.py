@@ -1,6 +1,7 @@
 import os
 import requests
 import base64
+from pprint import pprint
 
 
 class HarborClient:
@@ -17,9 +18,6 @@ class HarborClient:
         }
         response = requests.get(projects_endpoint, headers=headers, verify=False)
 
-        print(response)
-        print(dir(response))
-
         if response.status_code == 200:
             json = response.json()
             project_names = [project.get('name') for project in json]
@@ -27,6 +25,7 @@ class HarborClient:
             # print(response.json()[0].get('name'))
             # repositories = response.json().get('repositories', [])
             # print("Repositories:", repositories)
+            pprint(json)
         else:
             raise Exception(f"Failed to get projects: {response.status_code}, {response.text}")
 
